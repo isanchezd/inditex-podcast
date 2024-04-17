@@ -1,0 +1,35 @@
+.podcasts {
+  text-align: center;
+  margin: 0 1rem;
+}
+
+@media all and (min-width: 769px) {
+  .podcasts {
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.podcastsSearch {
+  margin: 1rem;
+}
+
+.podcastsSearch p {
+  background: var(--color-primary); 
+  color: var(--text-color-secondary);
+  border-radius: 5rem;
+  padding: 0.25rem;
+  margin: 0;
+}
+
+.podcastsSearch input {
+  margin: 0 1rem;
+}
+
+@media all and (min-width: 769px) {
+  .podcastsSearch {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
