@@ -12,3 +12,7 @@ export function getAllPodcasts() {
     );
     return localPodcastsInfo
 }
+
+export function getLastUpdated() {
+    return localStorage.getItem('podcasts_lastUpdated');
+}

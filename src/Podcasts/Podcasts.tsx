@@ -1,11 +1,13 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import Layout from '../components/Layout/Layout';
+import { getAllPodcasts as getAllPodcastLocal } from '../repositories/podcastsLocalRepository';
 import { getAllPodcasts } from '../repositories/podcastsHttpRepository';
-
 import SearchInput from './components/Search/Search';
 import PodcastCard from './components/PodcastCard/PodcastCard';
 import FeedEntry from '../domain/FeedEntry';
 import styles from './Podcast.module.css';
+import { getLastUpdated } from '../repositories/podcastsLocalRepository';
+import { defaultDate, isMajorThan1Day } from '../utils/utils';
 
 export default function Podcasts() {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,6 +16,11 @@ export default function Podcasts() {
 
   useEffect(() => {
     setIsLoading(true);
+    const lastTimeUpdated = getLastUpdated()
+    const isFetchRequired = isMajorThan1Day(
+      lastTimeUpdated || defaultDate.toString()
+    );
+
     const fetchData = async () => {
       try {
         const data = await getAllPodcasts();
@@ -26,6 +33,14 @@ export default function Podcasts() {
       }
     };
 
+    if (isFetchRequired) {
+      fetchData();
+    } else {
+      const localPodcastsInfo = getAllPodcastLocal();
+      setPodcasts(localPodcastsInfo);
+      setFilteredPodcasts(localPodcastsInfo);
+      setIsLoading(false)
+    }
     fetchData();
   }, []);
 
