@@ -1,0 +1,28 @@
+.podcastCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color-primary);
+  box-shadow: 2px 2px 5px var(--color-secondary);
+  position: relative;
+  margin: 2.5rem 0;
+  min-height: 150px;
+  cursor: pointer;
+}
+
+.podcastCardImage {
+  border-radius: 5rem;
+  width: 80px;
+  height: 80px;
+  margin-top: -6.5rem;
+}
+
+.podcastCardTitle {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.podcastCardAuthor {
+  font-size: 0.75rem;
+}
