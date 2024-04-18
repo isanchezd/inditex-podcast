@@ -5,6 +5,8 @@ import styles from './Podcast.module.css';
 import Layout from "../components/Layout/Layout";
 import { getPodcastById } from "../repositories/podcastsHttpRepository";
 import { default as PodcastDetailResume } from "./components/PodcastDetail/PodcastDetail";
+import { getPodcast, savePodcast } from "../repositories/podcastsLocalRepository";
+import { defaultDate, isMajorThan1Day } from "../utils/utils";
 
 export default function Podcast() {
     const { podcastId } = useParams();
@@ -16,6 +18,7 @@ export default function Podcast() {
     const fetchPodcast = async () => {
       try {
         const data = await getPodcastById(id);
+        savePodcast(id, data);
         setPodcastInfo(data.podcastInfo);
       } catch (error) {
         console.error(error); 
@@ -26,8 +29,23 @@ export default function Podcast() {
     };
 
     useEffect(() => {
-        setIsLoading(true)
-        fetchPodcast(); 
+        setIsLoading(true);
+        setError(false);
+
+        const localPodcastInfo = getPodcast(id);
+        const isFetchRequired = isMajorThan1Day(
+          localPodcastInfo?.lastUpdated
+            ? localPodcastInfo?.lastUpdated
+            : defaultDate
+        );
+
+        if (isFetchRequired) {
+            fetchPodcast(); 
+        } else {
+            localPodcastInfo ?  setPodcastInfo(localPodcastInfo.podcastInfo) : setError(true)
+            setIsLoading(false)
+        }
+
     }, [id])
 
 
