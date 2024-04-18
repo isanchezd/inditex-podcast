@@ -1,30 +1,25 @@
-# React + TypeScript + Vite
+# Apple Podcasts
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+This project contains the source code is a frontend tech test. Don´t use like final product or something else
 
-Currently, two official plugins are available:
+The project consist in build a SPA with 3 views for list the podcast from itunes, see the detail and see their episodes. This SPA must be cached the result of this results (probably because the api enable to the user some request passed some time)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stack
 
-## Expanding the ESLint configuration
+- React ecosystem (React + React Router)
+- Redux 
+- Vite (Used for build the proyect and dev environment)
+- Typescript
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+## Requirements
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Node.js (>= 20.9.0)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Scripts
+
+- `dev`: This command run the developer mode and run web server
+- `build`: This command generate the production build
+- `lint`: Run the linter for review the code
+- `preview`: Run the production build (is necesary the previous generation)
