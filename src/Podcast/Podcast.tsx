@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styles from './Podcast.module.css';
 import Layout from "../components/Layout/Layout";
 import { getPodcastById } from "../repositories/podcastsHttpRepository";
+import { default as PodcastDetailResume } from "./components/PodcastDetail/PodcastDetail";
 
 export default function Podcast() {
     const { podcastId } = useParams();
@@ -31,16 +32,21 @@ export default function Podcast() {
 
 
     return error ? (
-        <Layout>
-            <p className={`${styles.error}`}>
-                There's been an error loading this podcast. Please, check console for
-                more information.
-            </p>
-        </Layout>
-    ) : (
-        isLoading ? 
-        <Layout>
-            <h1>Podcast</h1>
-        </Layout> : null
-    )
+      <Layout>
+        <p className={`${styles.error}`}>
+          There's been an error loading this podcast. Please, check console for
+          more information.
+        </p>
+      </Layout>
+    ) : !isLoading && podcastInfo ? (
+      <Layout>
+        <PodcastDetailResume
+          id={id}
+          title={podcastInfo.collectionName}
+          author={podcastInfo.artistName}
+          image={podcastInfo.artworkUrl600}
+          episodes={podcastInfo.episodes}
+        />
+      </Layout>
+    ) : null;
 }

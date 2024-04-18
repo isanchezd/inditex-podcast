@@ -1,0 +1,60 @@
+p {
+  margin: 0;
+}
+
+.detailContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 2.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .detailContainer {
+    display: flex;
+    flex-direction: column;
+    gap:2rem;
+  }
+}
+
+.detailEpisodes {
+  min-width: 70%;
+  margin: 0 1rem;
+}
+
+.detailEpisodesNumber {
+  box-shadow: 2px 2px 5px var(--color-secondary);
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.75rem;
+}
+
+.detailEpisodesTitle {
+  color: var(--color-primary);
+}
+
+.detailEpisodesList {
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
+  box-shadow: 2px 2px 5px var(--color-secondary);
+  margin-top: 1rem;
+  padding: 0.25rem 0.75rem;
+}
+
+.detailEpisodesList > p,
+.detailEpisodesList > a {
+  color: var(--text-color-primary);
+  border-bottom: 1px solid var(--text-color-primary);
+  padding: 0.5rem 0;
+  text-decoration: none;
+}
+
+
+
+.detailEpisodesList > p:nth-last-child(-n + 3),
+.detailEpisodesList > a:nth-last-child(-n + 3) {
+  border-bottom: none;
+}
+
+.loading {
+  text-align: center;
+}
