@@ -8,30 +8,36 @@ import FeedEntry from '../domain/FeedEntry';
 import styles from './Podcast.module.css';
 import { getLastUpdated } from '../repositories/podcastsLocalRepository';
 import { defaultDate, isMajorThan1Day } from '../utils/utils';
+import { LoadingState, setLoadingFalse, setLoadingTrue } from '../store/loadingSlice';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 export default function Podcasts() {
-  const [isLoading, setIsLoading] = useState(true);
   const [podcasts, setPodcasts] = useState([]);
   const [filteredPodcasts, setFilteredPodcasts] = useState([]);
+  const isLoading = useSelector(
+    (state: { loading: LoadingState }) => state.loading.isLoading
+  );
+  const dispatch = useDispatch();
+
+  const fetchData = async () => {
+    try {
+      const data = await getAllPodcasts();
+      setPodcasts(data.feed.entry);
+      setFilteredPodcasts(data.feed.entry);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(setLoadingFalse());
+    }
+  };
 
   useEffect(() => {
-    setIsLoading(true);
+    dispatch(setLoadingTrue());
     const lastTimeUpdated = getLastUpdated()
     const isFetchRequired = isMajorThan1Day(
       lastTimeUpdated || defaultDate.toString()
     );
-
-    const fetchData = async () => {
-      try {
-        const data = await getAllPodcasts();
-        setPodcasts(data.feed.entry);
-        setFilteredPodcasts(data.feed.entry);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
     if (isFetchRequired) {
       fetchData();
@@ -39,7 +45,7 @@ export default function Podcasts() {
       const localPodcastsInfo = getAllPodcastLocal();
       setPodcasts(localPodcastsInfo);
       setFilteredPodcasts(localPodcastsInfo);
-      setIsLoading(false)
+      dispatch(setLoadingFalse());
     }
     fetchData();
   }, []);
