@@ -7,13 +7,24 @@ import { getPodcastById } from "../repositories/podcastsHttpRepository";
 import { default as PodcastDetailResume } from "./components/PodcastDetail/PodcastDetail";
 import { getPodcast, savePodcast } from "../repositories/podcastsLocalRepository";
 import { defaultDate, isMajorThan1Day } from "../utils/utils";
+import {
+  setLoadingTrue,
+  setLoadingFalse,
+  LoadingState,
+} from '../store/loadingSlice';
+import { useSelector, useDispatch } from 'react-redux';
+
+
 
 export default function Podcast() {
     const { podcastId } = useParams();
     const id = Number(podcastId);
-    const [isLoading, setIsLoading] = useState(true);
     const [podcastInfo, setPodcastInfo] = useState<PodcastDetail | null>(null);
     const [error, setError] = useState(false)
+    const dispatch = useDispatch();
+    const isLoading = useSelector(
+      (state: { loading: LoadingState }) => state.loading.isLoading
+    );
 
     const fetchPodcast = async () => {
       try {
@@ -24,12 +35,12 @@ export default function Podcast() {
         console.error(error); 
         setError(true);
       } finally {
-        setIsLoading(false)
+        dispatch(setLoadingFalse());
       }
     };
 
     useEffect(() => {
-        setIsLoading(true);
+        dispatch(setLoadingTrue());
         setError(false);
 
         const localPodcastInfo = getPodcast(id);
@@ -43,7 +54,7 @@ export default function Podcast() {
             fetchPodcast(); 
         } else {
             localPodcastInfo ?  setPodcastInfo(localPodcastInfo.podcastInfo) : setError(true)
-            setIsLoading(false)
+            dispatch(setLoadingFalse());
         }
 
     }, [id])
