@@ -1,0 +1,22 @@
+.episodeContainer {
+    box-shadow: 2px 2px 5px var(--color-secondary);
+    min-width: 70%;
+    margin: 0 1rem;
+    padding: 1rem;
+}
+
+.episodeContainer p {
+    font-style: italic;
+}
+
+.title {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.player {
+    margin-top: 1rem;
+}
+
+
+
