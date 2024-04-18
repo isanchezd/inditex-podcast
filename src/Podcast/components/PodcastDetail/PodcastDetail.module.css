@@ -2,20 +2,6 @@ p {
   margin: 0;
 }
 
-.detailContainer {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 2.5rem;
-}
-
-@media screen and (max-width: 768px) {
-  .detailContainer {
-    display: flex;
-    flex-direction: column;
-    gap:2rem;
-  }
-}
-
 .detailEpisodes {
   min-width: 70%;
   margin: 0 1rem;

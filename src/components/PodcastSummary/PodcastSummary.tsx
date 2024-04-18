@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import styles from './PodcastSummary.module.css'
-import Podcast  from '../../../domain/Podcast';
+import Podcast  from '../../domain/Podcast';
 
 interface PodcastSummaryProps extends Podcast {}
 

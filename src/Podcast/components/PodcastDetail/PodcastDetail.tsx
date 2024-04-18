@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import PodcastSummary from '../PodcastSummary/PodcastSummary'
+import PodcastSummary from '../../../components/PodcastSummary/PodcastSummary'
 import Podcast  from '../../../domain/Podcast'
 import styles from './PodcastDetail.module.css';
 
@@ -15,7 +15,7 @@ export default function PodcastDetailInfo({
   episodes,
 }: PodcastDetailProps) {
   return episodes ? (
-    <div className={`${styles.detailContainer}`}>
+    <div className="detailContainer">
       <PodcastSummary
         id={id}
         title={title}
