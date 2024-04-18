@@ -20,24 +20,24 @@ export default function Podcasts() {
   );
   const dispatch = useDispatch();
 
+  const fetchData = async () => {
+    try {
+      const data = await getAllPodcasts();
+      setPodcasts(data.feed.entry);
+      setFilteredPodcasts(data.feed.entry);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch(setLoadingFalse());
+    }
+  };
+
   useEffect(() => {
     dispatch(setLoadingTrue());
     const lastTimeUpdated = getLastUpdated()
     const isFetchRequired = isMajorThan1Day(
       lastTimeUpdated || defaultDate.toString()
     );
-
-    const fetchData = async () => {
-      try {
-        const data = await getAllPodcasts();
-        setPodcasts(data.feed.entry);
-        setFilteredPodcasts(data.feed.entry);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        dispatch(setLoadingFalse());
-      }
-    };
 
     if (isFetchRequired) {
       fetchData();
